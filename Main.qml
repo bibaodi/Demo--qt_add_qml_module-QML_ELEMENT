@@ -38,7 +38,7 @@ Window {
     Item {
         id: id_keyEvItem
         anchors.fill: parent
-        focus: true
+        focus: true //this is neceeeary!!!
         Keys.onPressed: event => {
                             if (event.key === Qt.Key_Left) {
                                 console.log("move left")
