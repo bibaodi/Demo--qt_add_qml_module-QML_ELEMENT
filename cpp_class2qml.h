@@ -11,12 +11,12 @@
 class CPP_CLASS2QML : public QObject {
   Q_OBJECT
   QML_ELEMENT
-  Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged FINAL)
+  Q_PROPERTY(int cppValue READ getValue WRITE setValue NOTIFY valueChanged FINAL)
 public:
   explicit CPP_CLASS2QML(QObject *parent = nullptr);
   enum Slippiness { Dry, Wet, Icy };
   Q_ENUM(Slippiness)
-  int value() const;
+  int getValue() const;
   void setValue(const int val);
   Q_INVOKABLE void slide(Slippiness slippiness);
 signals:

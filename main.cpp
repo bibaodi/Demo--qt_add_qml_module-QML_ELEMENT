@@ -16,7 +16,7 @@
 void insertCppObjToCtx(QQmlApplicationEngine &engine) {
   BindQmlPropertyToCppFunction *myObj = new BindQmlPropertyToCppFunction();
   QQmlContext *ctxt = engine.rootContext();
-  ctxt->setContextProperty("BindQmlPropertyToCppFunctionItem", (QObject *)myObj);
+  ctxt->setContextProperty("id_BindQmlPropertyToCppFunctionItem", (QObject *)myObj);
 }
 
 void setQtLog() {
@@ -34,7 +34,10 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   QQmlApplicationEngine engine;
-  insertCppObjToCtx(engine);
+  int notUseElementRegToQml = 1;
+  if (notUseElementRegToQml) {
+    insertCppObjToCtx(engine);
+  }
 
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreationFailed, &app, []() { QCoreApplication::exit(-1); },
