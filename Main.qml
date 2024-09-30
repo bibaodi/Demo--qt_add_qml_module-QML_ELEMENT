@@ -6,18 +6,34 @@ Window {
     height: 480
     visible: true
     title: qsTr("Hello World")
+    Text {
+        width: 100
+        height: 100
+        anchors.centerIn: parent
+        text: BindQmlPropertyToCppFunctionItem.theChange
+        font.pointSize: 25
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
     Rectangle {
         id: id_bindee //Property Binding
         width: 200
-        height: getHeight() //200 + id_cpp.value
-
+        height: 200 + id_cpp.value /*Qt.binding(function () {return 200 + id_cpp.value}) //-getHeight() //*/
         Rectangle {
+            id: id_binder
             width: 100
             height: parent.height
             color: "blue"
         }
         function getHeight() {
-            return 200 + id_cpp.value
+            return Qt.binding(function () {
+                return 200 + id_cpp.value
+            })
+        }
+        Component.onCompleted: {
+            id_binder.height = Qt.binding(function () {
+                return this.width * 2
+            })
+            console.log("id_binder.height = " + id_binder.height) // prints 200, not 1000
         }
     }
     CPP_CLASS2QML {
@@ -31,7 +47,7 @@ Window {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            //id_bindee.height += id_cpp.value
+            id_bindee.height += id_cpp.value
             console.log("value=:", id_cpp.value += 2)
         }
     }
@@ -46,8 +62,10 @@ Window {
                             } else if (event.key === Qt.Key_Enter) {
                                 console.log("Key_Enter")
                             } else {
-                                console.log("key=", event.key)
+
+                                //console.log("key=", event.key)
                             }
+                            id_binder.height = 300
                         }
     }
 }
