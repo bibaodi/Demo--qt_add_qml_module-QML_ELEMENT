@@ -22,6 +22,7 @@ qt_add_qml_module(${appName}
         SOURCES bindqmlpropertytocppfunction.h bindqmlpropertytocppfunction.cpp
         QML_FILES QmlBindToCpp.qml
         QML_FILES QmlAutoUpdateOnQtProp.qml
+        QML_FILES Qml2cdLevelUseParentCppObj.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
